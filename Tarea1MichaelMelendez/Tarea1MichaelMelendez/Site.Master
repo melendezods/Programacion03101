@@ -1,0 +1,66 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Tarea1MichaelMelendez.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="Black, FRiday, 70%, off all, 01, Awesome Interiors, 02, Fresh and Creative, INSPIRED DESIGN.&nbsp;UNPARALLELED EXPERIENCE.EXEMPLARY SERVICE., Follow Us!, Sale50%, man outlet, Or just reach us right here, Let&amp;apos;s get social!">
+    <meta name="description" content="pagina para jugar gato">
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Home">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <title><%: Page.Title %> - Juego Gato</title>
+    <asp:PlaceHolder runat="server">
+        <%: Styles.Render("~/bundles/AppStartupCss") %>
+    </asp:PlaceHolder>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body class="u-body u-overlap u-xl-mode">
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        
+
+            <header class="u-clearfix u-header u-header" id="sec-b7b7">
+                <div class="u-clearfix u-sheet u-sheet-1">
+                </div>
+            </header>
+            <div class="container body-content">
+                <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-76c3">
+                    <div class="u-clearfix u-sheet u-sheet-1">
+                        <p class="u-small-text u-text u-text-variant u-text-1">&copy; <%: DateTime.Now.Year %> - Tarea #1 Michael Meléndez Mesén</p>
+                    </div>
+                </footer>
+            </div>
+
+        </div>
+
+    </form>
+</body>
+</html>
