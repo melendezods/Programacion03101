@@ -1,0 +1,49 @@
+﻿@model Universidad.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="login_wrapper">
+    <div class="animate form login_form">
+        <section class="login_content">
+            <form asp-action="Index">
+                <h1>Login</h1>
+                <div>
+                    <input type="email" class="form-control" placeholder="Email" required="" name="Email" />
+                </div>
+                <div>
+                    <input type="password" class="form-control" placeholder="Password" required="" name="Password" />
+                </div>
+                <div>
+                    <div>
+                        <input type="submit" value="Log in" class="btn btn-primary" />
+                    </div>
+                    <a class="reset_pass" href="#">Lost your password?</a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="separator">
+                    <p class="change_link">
+                        New to site?
+                        <a href="/Login/CreateMessage" class="to_register"> Create Account </a>
+                    </p>
+
+                    <div class="clearfix"></div>
+                    <br />
+                    <div>
+                        <h2></i>@Model.message</h2>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <div>
+                        <h1><i class="fa fa-book"></i> Proyecto!</h1>
+                        <p> &copy; 2022 - Proyecto - Universidad <a asp-area="" asp-controller="Home"></a></p>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

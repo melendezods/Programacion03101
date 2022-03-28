@@ -452,7 +452,7 @@ namespace Tarea1MichaelMelendez
                 position_1.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-1 u-button-style-ok";
                 position_2.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-2 u-button-style-ok";
                 position_3.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-3 u-button-style-ok";
-                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partdia";
+                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partida";
                 btn_jugar.Text = "Limpiar";
                 return true;
             }
@@ -461,7 +461,7 @@ namespace Tarea1MichaelMelendez
                 position_4.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-4 u-button-style-ok";
                 position_5.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-5 u-button-style-ok";
                 position_6.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-6 u-button-style-ok";
-                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partdia";
+                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partida";
                 btn_jugar.Text = "Limpiar";
                 return true;
             }
@@ -470,7 +470,7 @@ namespace Tarea1MichaelMelendez
                 position_7.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-7 u-button-style-ok";
                 position_8.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-8 u-button-style-ok";
                 position_9.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-9 u-button-style-ok";
-                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partdia";
+                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partida";
                 btn_jugar.Text = "Limpiar";
                 return true;
             }
@@ -479,7 +479,7 @@ namespace Tarea1MichaelMelendez
                 position_1.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-1 u-button-style-ok";
                 position_4.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-4 u-button-style-ok";
                 position_7.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-7 u-button-style-ok";
-                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partdia";
+                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partida";
                 btn_jugar.Text = "Limpiar";
                 return true;
             }
@@ -488,7 +488,7 @@ namespace Tarea1MichaelMelendez
                 position_2.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-2 u-button-style-ok";
                 position_5.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-5 u-button-style-ok";
                 position_8.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-8 u-button-style-ok";
-                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partdia";
+                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partida";
                 btn_jugar.Text = "Limpiar";
                 return true;
             }
@@ -497,7 +497,7 @@ namespace Tarea1MichaelMelendez
                 position_3.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-3 u-button-style-ok";
                 position_6.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-6 u-button-style-ok";
                 position_9.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-9 u-button-style-ok";
-                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partdia";
+                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partida";
                 btn_jugar.Text = "Limpiar";
                 return true;
             }
@@ -506,7 +506,7 @@ namespace Tarea1MichaelMelendez
                 position_1.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-1 u-button-style-ok";
                 position_5.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-5 u-button-style-ok";
                 position_9.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-9 u-button-style-ok";
-                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partdia";
+                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partida";
                 btn_jugar.Text = "Limpiar";
                 return true;
             }
@@ -515,7 +515,7 @@ namespace Tarea1MichaelMelendez
                 position_3.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-3 u-button-style-ok";
                 position_5.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-5 u-button-style-ok";
                 position_4.CssClass = "u-border-2 u-border-black u-btn u-hover-black u-none u-text-hover-white u-btn-4 u-button-style-ok";
-                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partdia";
+                lbl_mensajes.Text = "El jugador con ficha " + ficha + " ha ganado la partida";
                 btn_jugar.Text = "Limpiar";
                 return true;
             }
