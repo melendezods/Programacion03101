@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UniversidadServicios.Entities.Entities;
 
@@ -29,6 +30,11 @@ namespace UniversidadServicios.Repository.Sql
         public T Read(string id)
         {
             return _upDbContext.Set<T>().Find(id);
+        }
+
+        public List<T> Read()
+        {
+            return _upDbContext.Set<T>().ToList();
         }
 
         public T Read(string id, string id2)

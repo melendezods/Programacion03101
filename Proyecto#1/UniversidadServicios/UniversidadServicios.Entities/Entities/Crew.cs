@@ -14,6 +14,7 @@ namespace UniversidadServicios.Entities.Entities
     {
         public Crew()
         {
+            Crewperson = new HashSet<Crewperson>();
             Flight = new HashSet<Flight>();
         }
 
@@ -23,6 +24,8 @@ namespace UniversidadServicios.Entities.Entities
         [StringLength(150)]
         public string Description { get; set; }
 
+        [InverseProperty("IdCrewNavigation")]
+        public virtual ICollection<Crewperson> Crewperson { get; set; }
         [InverseProperty("IdCrewNavigation")]
         public virtual ICollection<Flight> Flight { get; set; }
     }

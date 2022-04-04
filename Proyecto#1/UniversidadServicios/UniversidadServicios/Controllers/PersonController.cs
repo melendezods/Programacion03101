@@ -117,5 +117,32 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
 
         }
+
+        [HttpGet(Name = "GetPersons")]
+        public ActionResult<List<Person>> GetPersons()
+        {
+            try
+            {
+                List<Person> result = _personRepository.Read();
+                if (result == null)
+                    return BadRequest();
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return BadRequest();
+
+        }
     }
 }

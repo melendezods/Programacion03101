@@ -1,0 +1,88 @@
+﻿@model ICollection<Universidad.Models.Airplane>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-title">
+    <div class="title_left">
+        <h3>Avión</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Detalle <small>aviones</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li> <form action="/airplane/create"><button type="submit" class="btn btn-success">Crear nuevo</button></form></li>
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+                <div class="x_content">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">Nombre</th>
+                                    <th class="column-title">Descripción</th>
+                                    <th class="column-title">Filas primera clase</th>
+                                    <th class="column-title">Asientos primera clase</th>
+                                    <th class="column-title">Total Asientos primera clase</th>
+                                    <th class="column-title">Filas clase económica</th>
+                                    <th class="column-title">Asientos clase económica</th>
+                                    <th class="column-title">Total asientos clase económica</th>
+                                    <th class="column-title">Tipo de avión</th>
+                                    <th class="bulk-actions" colspan="7">
+                                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        int count = 0;
+                                        foreach (var item in Model)
+                                        {
+                                            int asientosPrimera = item.TotalFirstRows * item.TotalFirstxFristRow;
+                                            int asientosGeneral = item.TotalRows * item.TotalSeatingXRow;
+                                            string tipoAvion = Model.First().typeAirplanes.Find(x => x.IdTypeAirplane == item.IdTypeAirplane).ShortDes;
+                                            string classCss = count % 2 == 0 ? "even" : "odd";
+                                            <tr class="@classCss pointer">
+                                                <td class=" ">@item.Name</td>
+                                                <td class=" ">@item.Description</td>
+                                                <td class=" ">@item.TotalFirstRows</td>
+                                                <td class=" ">@item.TotalFirstxFristRow</td>
+                                                <td class=" ">@asientosPrimera</td>
+                                                <td class=" ">@item.TotalRows</td>
+                                                <td class=" ">@item.TotalSeatingXRow</td>
+                                                <td class=" ">@asientosGeneral</td>
+                                                <td class=" ">@tipoAvion</td>
+
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

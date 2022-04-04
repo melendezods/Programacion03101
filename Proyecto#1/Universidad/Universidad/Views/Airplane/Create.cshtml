@@ -1,0 +1,124 @@
+﻿@model Universidad.Models.Airplane
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Avión</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Regitro <small>aviones</small></h2>
+                <ul class="nav navbar-right panel_toolbox">                   
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+                <div class="x_content">
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/airplane/create" method="post">
+
+                            <div class="item form-group">
+                                <label asp-for="Name" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="Name">
+                                    Nombre <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="Name" id="Name" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="Description" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="Description">
+                                    Descripción <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="Description" id="Description" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="TotalRows" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="TotalRows">
+                                    Filas general <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="TotalRows" id="TotalRows" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="TotalRows" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="TotalSeatingXRow" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="TotalSeatingXRow">
+                                    Asientos por fila <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="TotalSeatingXRow" id="TotalSeatingXRow" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="TotalSeatingXRow" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="TotalFirstRows" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="TotalFirstRows">
+                                    Filas primera clase <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="TotalFirstRows" id="TotalFirstRows" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="TotalFirstRows" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="TotalFirstxFristRow" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="TotalFirstxFristRow">
+                                    Asientos por fila <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="TotalFirstxFristRow" id="TotalFirstxFristRow" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="TotalFirstxFristRow" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="IdTypeAirplane" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdTypeAirplane">
+                                    Tipo de avión <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdTypeAirplane" name="IdTypeAirplane" class="form-control" required>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.typeAirplanes)
+                                                {
+                                                    <option value="@item.IdTypeAirplane">@item.ShortDes</option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdTypeAirplane" class="text-danger"></span>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

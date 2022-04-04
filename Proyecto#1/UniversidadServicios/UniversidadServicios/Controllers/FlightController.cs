@@ -116,5 +116,32 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
 
         }
+
+        [HttpGet(Name = "GetFlights")]
+        public ActionResult<List<Flight>> GetFlights()
+        {
+            try
+            {
+                List<Flight> result = _flightRepository.Read();
+                if (result == null)
+                    return BadRequest();
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return BadRequest();
+
+        }
     }
 }

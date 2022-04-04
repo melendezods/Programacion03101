@@ -10,7 +10,7 @@ namespace UniversidadServicios.Repository
         public bool Update(T entity);
         public IEnumerable<T> ReadAll();
         public T Read(string id);
-
+        public List<T> Read();
         public T Read(string id,string id2);
         public bool Delete(T entity);
     }

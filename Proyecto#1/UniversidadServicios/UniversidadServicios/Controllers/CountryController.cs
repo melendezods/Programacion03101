@@ -118,5 +118,33 @@ namespace UniversidadServicios.Controllers
 
         }
 
+
+        [HttpGet(Name = "GetCountrys")]
+        public ActionResult<List<Country>> GetCountrys()
+        {
+            try
+            {
+                List<Country> result = _countryRepository.Read();
+                if (result == null)
+                    return BadRequest();
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return BadRequest();
+
+        }
+
     }
 }

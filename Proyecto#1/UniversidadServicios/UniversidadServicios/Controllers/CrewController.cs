@@ -117,5 +117,33 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
 
         }
+
+
+        [HttpGet(Name = "GetCrews")]
+        public ActionResult<List<Crew>> GetCrews()
+        {
+            try
+            {
+                List<Crew> result = _crewRepository.Read();
+                if (result == null)
+                    return BadRequest();
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return BadRequest();
+
+        }
     }
 }

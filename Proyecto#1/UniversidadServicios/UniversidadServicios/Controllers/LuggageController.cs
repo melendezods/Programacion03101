@@ -116,5 +116,32 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
 
         }
+
+        [HttpGet(Name = "GetLuggages")]
+        public ActionResult<List<Luggage>> GetLuggages()
+        {
+            try
+            {
+                List<Luggage> result = _luggageRepository.Read();
+                if (result == null)
+                    return BadRequest();
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return BadRequest();
+
+        }
     }
 }

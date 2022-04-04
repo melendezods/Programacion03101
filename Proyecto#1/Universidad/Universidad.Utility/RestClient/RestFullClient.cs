@@ -1,12 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace Universidad.Utility.RestClient
 {
     public class RestFullClient : IRestClient
     {
+        public string Delete(string url, string json)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Get(string url)
+        {
+            try
+            {
+                string responseString = "";
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var response = client.GetAsync(url).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        responseString = response.Content.ReadAsStringAsync().Result;
+                    }
+                }
+                return responseString;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
         public string Post(string url, string json)
         {
             try
@@ -23,6 +53,11 @@ namespace Universidad.Utility.RestClient
 
                 throw;
             }
+        }
+
+        public string Put(string url, string json)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -92,11 +92,18 @@ namespace UniversidadServicios.Controllers
         }
 
         [HttpGet("{name}", Name = "GetAirplane")]
-        public ActionResult<Airplane> GetAirplane(string name)
+        public ActionResult<List<Airplane>> GetAirplane(string name)
         {
             try
             {
+                if (name == null) 
+                {
+                    return _airplaneRepository.Read();
+                }
+
                 Airplane result = _airplaneRepository.Read(name);
+                List<Airplane> airplanes = new List<Airplane>();
+                airplanes.Add(result);
                 if (result == null)
                     return BadRequest();                
 
@@ -106,7 +113,36 @@ namespace UniversidadServicios.Controllers
                 }
                 else
                 {
-                    return Ok(result);
+                    return Ok(airplanes);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return BadRequest();
+
+        }
+
+        [HttpGet(Name = "GetAirplanes")]
+        public ActionResult<List<Airplane>> GetAirplanes()
+        {
+            try
+            {
+                
+                List<Airplane> airplanes = _airplaneRepository.Read();                
+               
+                if (airplanes == null)
+                    return BadRequest();
+
+                if (airplanes == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(airplanes);
                 }
             }
             catch (Exception ex)

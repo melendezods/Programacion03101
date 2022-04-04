@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Universidad.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Boletos</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Detalle <small>boletos</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li> <form action="/ticket/create"><button type="submit" class="btn btn-success">Crear nuevo</button></form></li>
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+                <div class="x_content">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">Vuelo</th>
+                                    <th class="column-title">Fecha vuelo</th>
+                                    <th class="column-title">Origen</th>
+                                    <th class="column-title">Destino</th>
+                                    <th class="column-title">Equipaje</th>
+                                    <th class="column-title">Asiento</th>
+                                    <th class="bulk-actions" colspan="7">
+                                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        int count = 0;
+                                        foreach (var item in Model)
+                                        {                                           
+                                            string classCss = count % 2 == 0 ? "even" : "odd";
+                                            string equipaje = @Model.First().Luggages.Find(x => x.IdLuggage == item.IdLuggage).ShortDes + " " + @Model.First().Luggages.Find(x => x.IdLuggage == item.IdLuggage).MaxKilos + "Kg";
+                                            <tr class="@classCss pointer">
+                                                <td class=" ">@item.IdFlight</td>
+                                                <td class=" ">@Model.First().Flights.Find(x => x.IdFlight == item.IdFlight).DateFlight</td>
+                                                <td class=" ">@Model.First().Flights.First().Country.Find(x => x.IdCountry == Model.First().Flights.Find(x => x.IdFlight == item.IdFlight).IdOriginCountry).Name</td>
+                                                <td class=" ">@Model.First().Flights.First().Country.Find(x => x.IdCountry == Model.First().Flights.Find(x => x.IdFlight == item.IdFlight).IdDestinationCountry).Name</td>
+                                                <td class=" ">@equipaje</td>
+                                                <td class=" ">@item.SeatNumber</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

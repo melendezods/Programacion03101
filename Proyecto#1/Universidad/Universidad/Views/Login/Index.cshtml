@@ -34,7 +34,13 @@
                     <div class="clearfix"></div>
                     <br />
                     <div>
-                        <h2></i>@Model.message</h2>
+                        @{   
+                            if (Model != null)
+                            {
+                                <h2>@Model.message</h2>
+                                
+                            }
+                        }
                     </div>
                     <div class="clearfix"></div>
                     <br />

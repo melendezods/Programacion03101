@@ -116,5 +116,32 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
 
         }
+
+        [HttpGet(Name = "GetPositions")]
+        public ActionResult<List<Position>> GetPositions()
+        {
+            try
+            {
+                List<Position> result = _positionRepository.Read();
+                if (result == null)
+                    return BadRequest();
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return BadRequest();
+
+        }
     }
 }

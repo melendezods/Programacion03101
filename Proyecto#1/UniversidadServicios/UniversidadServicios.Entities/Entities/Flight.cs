@@ -30,11 +30,17 @@ namespace UniversidadServicios.Entities.Entities
         [StringLength(20)]
         public string Duration { get; set; }
         public int IdCrew { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Airplane { get; set; }
         [Column(TypeName = "numeric(20, 4)")]
         public decimal PriceEconomical { get; set; }
         [Column(TypeName = "numeric(20, 4)")]
         public decimal PriceFrist { get; set; }
 
+        [ForeignKey(nameof(Airplane))]
+        [InverseProperty("Flight")]
+        public virtual Airplane AirplaneNavigation { get; set; }
         [ForeignKey(nameof(IdCrew))]
         [InverseProperty(nameof(Crew.Flight))]
         public virtual Crew IdCrewNavigation { get; set; }

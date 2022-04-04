@@ -12,6 +12,11 @@ namespace UniversidadServicios.Entities.Entities
     [Table("AIRPLANE")]
     public partial class Airplane
     {
+        public Airplane()
+        {
+            Flight = new HashSet<Flight>();
+        }
+
         public int IdAirplane { get; set; }
         [Key]
         [StringLength(50)]
@@ -28,5 +33,7 @@ namespace UniversidadServicios.Entities.Entities
         [ForeignKey(nameof(IdTypeAirplane))]
         [InverseProperty(nameof(TypeAirplane.Airplane))]
         public virtual TypeAirplane IdTypeAirplaneNavigation { get; set; }
+        [InverseProperty("AirplaneNavigation")]
+        public virtual ICollection<Flight> Flight { get; set; }
     }
 }

@@ -12,6 +12,11 @@ namespace UniversidadServicios.Entities.Entities
     [Table("PERSON")]
     public partial class Person
     {
+        public Person()
+        {
+            Crewperson = new HashSet<Crewperson>();
+        }
+
         public int IdPerson { get; set; }
         [Key]
         [StringLength(60)]
@@ -38,5 +43,7 @@ namespace UniversidadServicios.Entities.Entities
         [ForeignKey(nameof(IdPosition))]
         [InverseProperty(nameof(Position.Person))]
         public virtual Position IdPositionNavigation { get; set; }
+        [InverseProperty("IdPersonNavigation")]
+        public virtual ICollection<Crewperson> Crewperson { get; set; }
     }
 }

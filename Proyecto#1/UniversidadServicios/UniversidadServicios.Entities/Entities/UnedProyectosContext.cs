@@ -32,7 +32,16 @@ namespace UniversidadServicios.Entities.Entities
         public virtual DbSet<TypeAirplane> TypeAirplane { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UsersAuthentication> UsersAuthentication { get; set; }
-       
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=UnedProyectos;Trusted_Connection=True;");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Airplane>(entity =>
@@ -64,18 +73,18 @@ namespace UniversidadServicios.Entities.Entities
 
             modelBuilder.Entity<Crewperson>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.IdCrew, e.IdPerson });
 
                 entity.Property(e => e.IdPerson).IsUnicode(false);
 
                 entity.HasOne(d => d.IdCrewNavigation)
-                    .WithMany()
+                    .WithMany(p => p.Crewperson)
                     .HasForeignKey(d => d.IdCrew)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CREWPERSON_CREW");
 
                 entity.HasOne(d => d.IdPersonNavigation)
-                    .WithMany()
+                    .WithMany(p => p.Crewperson)
                     .HasForeignKey(d => d.IdPerson)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CREWPERSON_PERSON");
@@ -83,9 +92,17 @@ namespace UniversidadServicios.Entities.Entities
 
             modelBuilder.Entity<Flight>(entity =>
             {
+                entity.Property(e => e.Airplane).IsUnicode(false);
+
                 entity.Property(e => e.Direct).IsUnicode(false);
 
                 entity.Property(e => e.Duration).IsUnicode(false);
+
+                entity.HasOne(d => d.AirplaneNavigation)
+                    .WithMany(p => p.Flight)
+                    .HasForeignKey(d => d.Airplane)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FLIGHT_AIRPLANE");
 
                 entity.HasOne(d => d.IdCrewNavigation)
                     .WithMany(p => p.Flight)

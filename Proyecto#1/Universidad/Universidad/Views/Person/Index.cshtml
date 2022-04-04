@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Universidad.Models.Person>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Personas</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Detalle <small>personas</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li> <form action="/person/create"><button type="submit" class="btn btn-success">Crear nuevo</button></form></li>
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+
+                <div class="x_content">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">Nombre</th>
+                                    <th class="column-title">Apellidos</th>
+                                    <th class="column-title">Identificación</th>
+                                    <th class="column-title">Correo electrónico</th>
+                                    <th class="column-title">Fecha de nacimiento</th>
+                                    <th class="column-title">Genero</th>
+                                    <th class="column-title">Cargo</th>
+                                    <th class="bulk-actions" colspan="7">
+                                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        int count = 0;
+                                        foreach (var item in Model)
+                                        {
+                                            string position = Model.First().Position.Find(x => x.IdPosition == item.IdPosition).Position1;
+                                            string gender = Model.First().Gender.Find(x => x.IdGender == item.IdGender).Gender1;
+                                            string classCss = count % 2 == 0 ? "even" : "odd";
+                                            string apellidos = item.LastName + " " + item.Surname;
+                                            <tr class="@classCss pointer">
+                                                <td class=" ">@item.Name</td>
+                                                <td class=" ">@apellidos</td>
+                                                <td class=" ">@item.Identification</td>
+                                                <td class=" ">@item.Email</td>
+                                                <td class=" ">@item.BirthDate</td>
+                                                <td class=" ">@gender</td>
+                                                <td class=" ">@position</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

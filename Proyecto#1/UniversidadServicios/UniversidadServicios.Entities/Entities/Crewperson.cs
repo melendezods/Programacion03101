@@ -12,14 +12,17 @@ namespace UniversidadServicios.Entities.Entities
     [Table("CREWPERSON")]
     public partial class Crewperson
     {
+        [Key]
         public int IdCrew { get; set; }
-        [Required]
+        [Key]
         [StringLength(60)]
         public string IdPerson { get; set; }
 
         [ForeignKey(nameof(IdCrew))]
+        [InverseProperty(nameof(Crew.Crewperson))]
         public virtual Crew IdCrewNavigation { get; set; }
         [ForeignKey(nameof(IdPerson))]
+        [InverseProperty(nameof(Person.Crewperson))]
         public virtual Person IdPersonNavigation { get; set; }
     }
 }

@@ -42,6 +42,8 @@ namespace Universidad.Controllers
             {
                 if (user != null)
                 {
+                    user.Name = user.Email;
+                    user.LastName = user.Email;
                     User userLogin = JsonConvert.DeserializeObject<User>(_utility.RestClient.Post(_appSettings.url.Login, JsonConvert.SerializeObject(user)));
 
                     if (userLogin != null)
@@ -133,6 +135,10 @@ namespace Universidad.Controllers
                     User userVerify = JsonConvert.DeserializeObject<User>(_utility.RestClient.Post(_appSettings.url.VerifyCode, JsonConvert.SerializeObject(user)));
                     if (userVerify.status)
                     {
+
+                        string cookieValueFromReq = Request.Cookies["EmailUser"];
+                        //set the key value in Cookie  
+                        Set("EmailUser", userVerify.Email,10);
                         return Redirect("/Home/index");
                     }
                     else
@@ -146,6 +152,18 @@ namespace Universidad.Controllers
             {
                 return View();
             }
+        }
+
+        public void Set(string key, string value, int? expireTime)
+        {
+            CookieOptions option = new CookieOptions();
+
+            if (expireTime.HasValue)
+                option.Expires = DateTime.Now.AddMinutes(expireTime.Value);
+            else
+                option.Expires = DateTime.Now.AddMilliseconds(10);
+
+            Response.Cookies.Append(key, value, option);
         }
     }
 }
