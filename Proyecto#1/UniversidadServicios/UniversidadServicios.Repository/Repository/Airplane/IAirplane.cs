@@ -7,5 +7,6 @@ namespace UniversidadServicios.Repository.Repository.Airplane
 {
     public interface IAirplane : IRepository<Entities.Entities.Airplane>
     {
+
     }
 }

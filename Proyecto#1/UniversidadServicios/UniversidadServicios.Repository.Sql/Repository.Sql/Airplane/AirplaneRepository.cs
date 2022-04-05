@@ -11,5 +11,6 @@ namespace UniversidadServicios.Repository.Sql.Repository.Sql.Airplane
         public AirplaneRepository(UnedProyectosContext upDbContext) : base(upDbContext)
         {
         }
+
     }
 }
