@@ -1,0 +1,86 @@
+﻿@model ICollection<Universidad.Models.Flight>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Vuelos</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Detalle <small>vuelos</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li> <form action="/flight/create"><button type="submit" class="btn btn-success">Crear nuevo</button></form></li>
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+                <div class="x_content">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">Número vuelo</th>
+                                    <th class="column-title">Fecha</th>
+                                    <th class="column-title">Origen</th>
+                                    <th class="column-title">Destino</th>
+                                    <th class="column-title">Duración</th>
+                                    <th class="column-title">Es directo</th>
+                                    <th class="column-title">Precio asiento primera clase</th>
+                                    <th class="column-title">Precio asiento clase económica</th>
+                                    <th class="column-title">Avión</th>
+                                    <th class="column-title">Tripulación</th>
+                                    <th class="bulk-actions" colspan="7">
+                                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        int count = 0;
+                                        foreach (var item in Model)
+                                        {
+
+                                            string classCss = count % 2 == 0 ? "even" : "odd";
+                                            string direct = Int32.Parse(item.Direct) > 0 ? "Si" : "No";
+                                            <tr class="@classCss pointer">
+                                                <td class=" ">@item.IdFlight</td>
+                                                <td class=" ">@item.DateFlight</td>
+                                                <td class=" ">@Model.First().Country.Find(x => x.IdCountry == item.IdOriginCountry).Name</td>
+                                                <td class=" ">@Model.First().Country.Find(x => x.IdCountry == item.IdDestinationCountry).Name</td>
+                                                <td class=" ">@item.Duration</td>
+                                                <td class=" ">@direct</td>
+                                                <td class=" ">$@item.PriceFrist</td>
+                                                <td class=" ">$@item.PriceEconomical</td>
+                                                <td class=" ">@Model.First().Airplanes.Find(x => x.Name == item.Airplane).Name</td>
+                                                <td class=" ">@Model.First().Crew.Find(x => x.IdCrew == item.IdCrew).Description</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

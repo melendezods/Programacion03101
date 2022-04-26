@@ -1,0 +1,188 @@
+﻿@model Universidad.Models.Flight
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Vuelos</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Regitro <small>vuelos</small></h2>
+                <ul class="nav navbar-right panel_toolbox">                    
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+
+                <div class="x_content">
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/flight/create" method="post">
+
+                            <div class="item form-group">
+                                <label asp-for="DateFlight" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="DateFlight">
+                                    Fecha de vuelo
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="DateFlight" id="DateFlight" class="date-picker form-control" placeholder="yyyy-mm-dd" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                                    <script>
+                                        function timeFunctionLong(input) {
+                                            setTimeout(function () {
+                                                input.type = 'text';
+                                            }, 60000);
+                                        }
+                                    </script>
+                                </div>
+                                <span asp-validation-for="DateFlight" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="Direct" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="Direct">
+                                    Es directo <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="Direct" name="Direct" class="form-control" required>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Direct" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="IdOriginCountry" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdOriginCountry">
+                                    Origen <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdOriginCountry" name="IdOriginCountry" class="form-control" required>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.Country)
+                                                {
+                                                    <option value="@item.IdCountry">@item.Name</option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdOriginCountry" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="IdDestinationCountry" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdDestinationCountry">
+                                    Destino <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdDestinationCountry" name="IdDestinationCountry" class="form-control" required>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.Country)
+                                                {
+                                                    <option value="@item.IdCountry">@item.Name</option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdOriginCountry" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="Duration" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="Duration">
+                                    Duración <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="Duration" id="LastName" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="Duration" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="IdCrew" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdCrew">
+                                    Tripulación <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdCrew" name="IdCrew" class="form-control" required>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.Crew)
+                                                {
+                                                    <option value="@item.IdCrew">@item.Description</option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdCrew" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="Airplane" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="Airplane">
+                                    Avión <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="Airplane" name="Airplane" class="form-control" required>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.Airplanes)
+                                                {
+                                                    <option value="@item.Name">@item.Name</option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Airplane" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="PriceFrist" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="PriceFrist">
+                                    Precio primera clase $ <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="PriceFrist" id="PriceFrist" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="PriceFrist" class="text-danger"></span>
+                            </div>
+
+                            <div class="item form-group">
+                                <label asp-for="PriceEconomical" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="PriceEconomical">
+                                    Precio clase económica $ <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="PriceEconomical" id="PriceEconomical" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="PriceEconomical" class="text-danger"></span>
+                            </div>
+                           
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

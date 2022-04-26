@@ -1,0 +1,54 @@
+﻿@model Universidad.Models.User
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="login_wrapper">
+    <div id="register" class="form login_form">
+        <section class="login_content">
+            <form asp-action="Create">
+                <h1>Create Account</h1>
+                <div>
+                    <input type="text" class="form-control" placeholder="Name" required="" name="Name" />
+                </div>
+                <div>
+                    <input type="text" class="form-control" placeholder="Last name" required="" name="LastName" />
+                </div>
+                <div>
+                    <input type="text" class="form-control" placeholder="Surname" required="" name="Surname" />
+                </div>
+                <div>
+                    <input type="email" class="form-control" placeholder="Email" required="" name="Email" />
+                </div>
+                <div>
+                    <input type="password" class="form-control" placeholder="Password" required="" name="Password" />
+                </div>
+                <div>
+                    <input type="submit" value="Create Account" class="btn btn-primary" />
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="separator">
+                    <p class="change_link">
+                        Already a member ?
+                        <a href="/Login/indexMessage" class="to_register"> Log in </a>
+                    </p>
+                    <div class="clearfix"></div>
+                    <br />
+                    <div>
+                        <h2>@Model.message</h2>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <div>
+                        <h1><i class="fa fa-book"></i> Proyecto!</h1>
+                        &copy; 2022 - Proyecto - Universidad <a asp-area="" asp-controller="Home"></a>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
