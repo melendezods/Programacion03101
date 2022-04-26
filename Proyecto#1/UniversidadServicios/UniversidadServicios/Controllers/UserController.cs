@@ -42,7 +42,7 @@ namespace UniversidadServicios.Controllers
             }
             catch (Exception ex)
             {
-                
+
             }
             return BadRequest();
 
@@ -64,7 +64,7 @@ namespace UniversidadServicios.Controllers
             }
             catch (Exception ex)
             {
-                
+
             }
 
             return BadRequest();
@@ -88,7 +88,7 @@ namespace UniversidadServicios.Controllers
                 return Ok();
             }
             catch (Exception ex)
-            {               
+            {
             }
 
             return BadRequest();
@@ -119,7 +119,7 @@ namespace UniversidadServicios.Controllers
             }
             catch (Exception ex)
             {
-               
+
             }
 
             return BadRequest();

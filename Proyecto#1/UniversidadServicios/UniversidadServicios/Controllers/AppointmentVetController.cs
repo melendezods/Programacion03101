@@ -6,38 +6,37 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UniversidadServicios.Entities.Entities;
 using UniversidadServicios.Models.Models;
-using UniversidadServicios.Repository.Repository.Country;
-
+using UniversidadServicios.Repository.Repository.AppointmentVet;
 using UniversidadServicios.Utility;
 
 namespace UniversidadServicios.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountryController : ControllerBase
+    public class AppointmentVetController : ControllerBase
     {
         private readonly IUtility _utility;
-        private readonly ICountry _countryRepository;
+        private readonly IAppointmentVet _appointmentVetRepository;
         private readonly AppSettings _appSettings;
 
-        public CountryController(IUtility utility, ICountry countryRepository, AppSettings appSettings)
+        public AppointmentVetController(IUtility utility, IAppointmentVet appointmentVetRepository, AppSettings appSettings)
         {
             _utility = utility;
-            _countryRepository = countryRepository;
+            _appointmentVetRepository = appointmentVetRepository;
             _appSettings = appSettings;
 
         }
 
         [HttpPost]
-        public ActionResult<Country> Post([FromBody] Country country)
+        public ActionResult<AppointmentVet> Post([FromBody] AppointmentVet appointmentVet)
         {
 
             try
             {
-                if (country == null) return BadRequest();
-                _countryRepository.Create(country);
+                if (appointmentVet == null) return BadRequest();
+                _appointmentVetRepository.Create(appointmentVet);
 
-                return CreatedAtAction("GetCountry", new { country.IdCountry }, country);
+                return CreatedAtAction("GetAppointmentVet", new { appointmentVet.Id }, appointmentVet);
             }
             catch (Exception ex)
             {
@@ -48,16 +47,16 @@ namespace UniversidadServicios.Controllers
         }
 
         [HttpPut]
-        public ActionResult<Country> Put([FromBody] Country country)
+        public ActionResult<AppointmentVet> Put([FromBody] AppointmentVet appointmentVet)
         {
 
             try
             {
-                if (country == null) return BadRequest();
+                if (appointmentVet == null) return BadRequest();
 
-                _countryRepository.Update(country);
+                _appointmentVetRepository.Update(appointmentVet);
 
-                return Ok(country);
+                return Ok(appointmentVet);
             }
             catch (Exception ex)
             {
@@ -68,19 +67,19 @@ namespace UniversidadServicios.Controllers
 
         }
 
-        [HttpDelete]
-        public ActionResult<Country> Delete(String IdCountry)
+        [HttpDelete("{Id}", Name = "Delete")]
+        public ActionResult<AppointmentVet> Delete(int Id)
         {
             try
             {
-                if (IdCountry == null) return BadRequest();
+                if (Id == null) return BadRequest();
 
-                Country country = _countryRepository.Read(IdCountry);
+                AppointmentVet appointmentVet = _appointmentVetRepository.Read(Id);
 
 
-                if (country == null) return NoContent();
+                if (appointmentVet == null) return NoContent();
 
-                _countryRepository.Delete(country);
+                _appointmentVetRepository.Delete(appointmentVet);
 
                 return Ok();
             }
@@ -91,16 +90,12 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{IdCountry}", Name = "GetCountry")]
-        public ActionResult<Country> GetCountry(string IdCountry)
+        [HttpGet("{Id}", Name = "GetAppointmentVet")]
+        public ActionResult<AppointmentVet> GetAppointmentVet(int Id)
         {
-
-
-           
-
             try
             {
-                Country result = _countryRepository.Read(IdCountry);
+                AppointmentVet result = _appointmentVetRepository.Read(Id);
                 if (result == null)
                     return BadRequest();
 
@@ -122,13 +117,12 @@ namespace UniversidadServicios.Controllers
 
         }
 
-
-        [HttpGet(Name = "GetCountrys")]
-        public ActionResult<List<Country>> GetCountrys()
+        [HttpGet(Name = "GetAppointmentVets")]
+        public ActionResult<List<AppointmentVet>> GetAppointmentVets()
         {
             try
             {
-                List<Country> result = _countryRepository.Read();
+                List<AppointmentVet> result = _appointmentVetRepository.Read();
                 if (result == null)
                     return BadRequest();
 
@@ -149,6 +143,5 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
 
         }
-
     }
 }

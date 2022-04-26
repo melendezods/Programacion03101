@@ -14,6 +14,7 @@ namespace UniversidadServicios.Entities.Entities
     {
         public Users()
         {
+            AppointmentVet = new HashSet<AppointmentVet>();
             Ticket = new HashSet<Ticket>();
             UsersAuthentication = new HashSet<UsersAuthentication>();
         }
@@ -35,6 +36,8 @@ namespace UniversidadServicios.Entities.Entities
         [StringLength(500)]
         public string Password { get; set; }
 
+        [InverseProperty("IdUserNavigation")]
+        public virtual ICollection<AppointmentVet> AppointmentVet { get; set; }
         [InverseProperty("IdUserNavigation")]
         public virtual ICollection<Ticket> Ticket { get; set; }
         [InverseProperty("EmailNavigation")]

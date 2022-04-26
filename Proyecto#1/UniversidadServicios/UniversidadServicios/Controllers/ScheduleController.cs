@@ -6,38 +6,37 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UniversidadServicios.Entities.Entities;
 using UniversidadServicios.Models.Models;
-using UniversidadServicios.Repository.Repository.Country;
-
+using UniversidadServicios.Repository.Repository.Shedule;
 using UniversidadServicios.Utility;
 
 namespace UniversidadServicios.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountryController : ControllerBase
+    public class ScheduleController : ControllerBase
     {
         private readonly IUtility _utility;
-        private readonly ICountry _countryRepository;
+        private readonly ISchedule _scheduleRepository;
         private readonly AppSettings _appSettings;
 
-        public CountryController(IUtility utility, ICountry countryRepository, AppSettings appSettings)
+        public ScheduleController(IUtility utility, ISchedule scheduletRepository, AppSettings appSettings)
         {
             _utility = utility;
-            _countryRepository = countryRepository;
+            _scheduleRepository = scheduletRepository;
             _appSettings = appSettings;
 
         }
 
         [HttpPost]
-        public ActionResult<Country> Post([FromBody] Country country)
+        public ActionResult<Schedule> Post([FromBody] Schedule schedule)
         {
 
             try
             {
-                if (country == null) return BadRequest();
-                _countryRepository.Create(country);
+                if (schedule == null) return BadRequest();
+                _scheduleRepository.Create(schedule);
 
-                return CreatedAtAction("GetCountry", new { country.IdCountry }, country);
+                return CreatedAtAction("GetSchedule", new { schedule.Id }, schedule);
             }
             catch (Exception ex)
             {
@@ -48,16 +47,16 @@ namespace UniversidadServicios.Controllers
         }
 
         [HttpPut]
-        public ActionResult<Country> Put([FromBody] Country country)
+        public ActionResult<Schedule> Put([FromBody] Schedule schedule)
         {
 
             try
             {
-                if (country == null) return BadRequest();
+                if (schedule == null) return BadRequest();
 
-                _countryRepository.Update(country);
+                _scheduleRepository.Update(schedule);
 
-                return Ok(country);
+                return Ok(schedule);
             }
             catch (Exception ex)
             {
@@ -69,18 +68,18 @@ namespace UniversidadServicios.Controllers
         }
 
         [HttpDelete]
-        public ActionResult<Country> Delete(String IdCountry)
+        public ActionResult<Schedule> Delete(String Id)
         {
             try
             {
-                if (IdCountry == null) return BadRequest();
+                if (Id == null) return BadRequest();
 
-                Country country = _countryRepository.Read(IdCountry);
+                Schedule schedule = _scheduleRepository.Read(Id);
 
 
-                if (country == null) return NoContent();
+                if (schedule == null) return NoContent();
 
-                _countryRepository.Delete(country);
+                _scheduleRepository.Delete(schedule);
 
                 return Ok();
             }
@@ -91,16 +90,12 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{IdCountry}", Name = "GetCountry")]
-        public ActionResult<Country> GetCountry(string IdCountry)
+        [HttpGet("{Id}", Name = "GetSchedule")]
+        public ActionResult<Schedule> GetSchedule(string Id)
         {
-
-
-           
-
             try
             {
-                Country result = _countryRepository.Read(IdCountry);
+                Schedule result = _scheduleRepository.Read(Id);
                 if (result == null)
                     return BadRequest();
 
@@ -122,13 +117,12 @@ namespace UniversidadServicios.Controllers
 
         }
 
-
-        [HttpGet(Name = "GetCountrys")]
-        public ActionResult<List<Country>> GetCountrys()
+        [HttpGet(Name = "GetSchedules")]
+        public ActionResult<List<Schedule>> GetSchedules()
         {
             try
             {
-                List<Country> result = _countryRepository.Read();
+                List<Schedule> result = _scheduleRepository.Read();
                 if (result == null)
                     return BadRequest();
 
@@ -149,6 +143,5 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
 
         }
-
     }
 }

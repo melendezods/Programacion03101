@@ -15,13 +15,12 @@ namespace Universidad.Utility
 
         public string Post(string url, string json);
         public string Put(string url, string json);
-        public string Delete(string url, string json);
+        public string Delete(string url);
 
         public string Get(string url);
 
 
     }
 
-   
 
 }

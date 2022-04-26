@@ -32,6 +32,11 @@ namespace UniversidadServicios.Repository.Sql
             return _upDbContext.Set<T>().Find(id);
         }
 
+        public T Read(int id)
+        {
+            return _upDbContext.Set<T>().Find(id);
+        }
+
         public List<T> Read()
         {
             return _upDbContext.Set<T>().ToList();

@@ -20,6 +20,10 @@ namespace UniversidadServicios.Entities.Entities
         }
 
         public virtual DbSet<Airplane> Airplane { get; set; }
+        public virtual DbSet<Animal> Animal { get; set; }
+        public virtual DbSet<AnimalRaze> AnimalRaze { get; set; }
+        public virtual DbSet<AnimalType> AnimalType { get; set; }
+        public virtual DbSet<AppointmentVet> AppointmentVet { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Crew> Crew { get; set; }
         public virtual DbSet<Crewperson> Crewperson { get; set; }
@@ -28,6 +32,8 @@ namespace UniversidadServicios.Entities.Entities
         public virtual DbSet<Luggage> Luggage { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Position> Position { get; set; }
+        public virtual DbSet<Schedule> Schedule { get; set; }
+        public virtual DbSet<SpecialtyVet> SpecialtyVet { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
         public virtual DbSet<TypeAirplane> TypeAirplane { get; set; }
         public virtual DbSet<Users> Users { get; set; }
@@ -57,6 +63,76 @@ namespace UniversidadServicios.Entities.Entities
                     .HasForeignKey(d => d.IdTypeAirplane)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AIRPLANE");
+            });
+
+            modelBuilder.Entity<Animal>(entity =>
+            {
+                entity.Property(e => e.Description).IsUnicode(false);
+
+                entity.Property(e => e.Name).IsUnicode(false);
+
+                entity.HasOne(d => d.IdAnimalRazeNavigation)
+                    .WithMany(p => p.Animal)
+                    .HasForeignKey(d => d.IdAnimalRaze)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ANIMALRAZE");
+
+                entity.HasOne(d => d.IdAnimalTypeNavigation)
+                    .WithMany(p => p.Animal)
+                    .HasForeignKey(d => d.IdAnimalType)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ANIMALTYPE");
+            });
+
+            modelBuilder.Entity<AnimalRaze>(entity =>
+            {
+                entity.Property(e => e.Description).IsUnicode(false);
+
+                entity.Property(e => e.Name).IsUnicode(false);
+
+                entity.HasOne(d => d.IdAnimalTypeNavigation)
+                    .WithMany(p => p.AnimalRaze)
+                    .HasForeignKey(d => d.IdAnimalType)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ANIMAL_RAZE");
+            });
+
+            modelBuilder.Entity<AnimalType>(entity =>
+            {
+                entity.Property(e => e.Description).IsUnicode(false);
+
+                entity.Property(e => e.Name).IsUnicode(false);
+            });
+
+            modelBuilder.Entity<AppointmentVet>(entity =>
+            {
+                entity.Property(e => e.IdUser).IsUnicode(false);
+
+                entity.Property(e => e.Name).IsUnicode(false);
+
+                entity.HasOne(d => d.IdAnimalNavigation)
+                    .WithMany(p => p.AppointmentVet)
+                    .HasForeignKey(d => d.IdAnimal)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_APPOINTEMN_VET_ANIMAL");
+
+                entity.HasOne(d => d.IdSheduleNavigation)
+                    .WithMany(p => p.AppointmentVet)
+                    .HasForeignKey(d => d.IdShedule)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_APPOINTEMN_VET_SHEDULE");
+
+                entity.HasOne(d => d.IdSpecialtyVetNavigation)
+                    .WithMany(p => p.AppointmentVet)
+                    .HasForeignKey(d => d.IdSpecialtyVet)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_APPOINTEMN_VET_SPECIALTY_VET");
+
+                entity.HasOne(d => d.IdUserNavigation)
+                    .WithMany(p => p.AppointmentVet)
+                    .HasForeignKey(d => d.IdUser)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_APPOINTEMN_VET_USER");
             });
 
             modelBuilder.Entity<Country>(entity =>
@@ -167,6 +243,24 @@ namespace UniversidadServicios.Entities.Entities
                 entity.Property(e => e.Description).IsUnicode(false);
 
                 entity.Property(e => e.Position1).IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Schedule>(entity =>
+            {
+                entity.Property(e => e.Hours).IsUnicode(false);
+
+                entity.HasOne(d => d.IdSpecialtyNavigation)
+                    .WithMany(p => p.Schedule)
+                    .HasForeignKey(d => d.IdSpecialty)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SCHEDULE");
+            });
+
+            modelBuilder.Entity<SpecialtyVet>(entity =>
+            {
+                entity.Property(e => e.Description).IsUnicode(false);
+
+                entity.Property(e => e.Name).IsUnicode(false);
             });
 
             modelBuilder.Entity<Ticket>(entity =>

@@ -8,9 +8,28 @@ namespace Universidad.Utility.RestClient
 {
     public class RestFullClient : IRestClient
     {
-        public string Delete(string url, string json)
+        public string Delete(string url)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string responseString = "";
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var response = client.DeleteAsync(url).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        responseString = response.Content.ReadAsStringAsync().Result;
+                    }
+                }
+                return responseString;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public string Get(string url)
@@ -57,7 +76,20 @@ namespace Universidad.Utility.RestClient
 
         public string Put(string url, string json)
         {
-            throw new NotImplementedException();
+            try
+            {
+                HttpClient client = new HttpClient();
+                StringContent stringContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PutAsync(url, stringContent).Result;
+                var result = response.Content.ReadAsStringAsync();
+                return result.Result;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

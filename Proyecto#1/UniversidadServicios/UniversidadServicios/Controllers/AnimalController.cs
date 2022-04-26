@@ -6,38 +6,37 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UniversidadServicios.Entities.Entities;
 using UniversidadServicios.Models.Models;
-using UniversidadServicios.Repository.Repository.Country;
-
+using UniversidadServicios.Repository.Repository.Animal;
 using UniversidadServicios.Utility;
 
 namespace UniversidadServicios.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountryController : ControllerBase
+    public class AnimalController : ControllerBase
     {
         private readonly IUtility _utility;
-        private readonly ICountry _countryRepository;
+        private readonly IAnimal _animalRepository;
         private readonly AppSettings _appSettings;
 
-        public CountryController(IUtility utility, ICountry countryRepository, AppSettings appSettings)
+        public AnimalController(IUtility utility, IAnimal animalRepository, AppSettings appSettings)
         {
             _utility = utility;
-            _countryRepository = countryRepository;
+            _animalRepository = animalRepository;
             _appSettings = appSettings;
 
         }
 
         [HttpPost]
-        public ActionResult<Country> Post([FromBody] Country country)
+        public ActionResult<Animal> Post([FromBody] Animal animal)
         {
 
             try
             {
-                if (country == null) return BadRequest();
-                _countryRepository.Create(country);
+                if (animal == null) return BadRequest();
+                _animalRepository.Create(animal);
 
-                return CreatedAtAction("GetCountry", new { country.IdCountry }, country);
+                return CreatedAtAction("GetAnimal", new { animal.Id }, animal);
             }
             catch (Exception ex)
             {
@@ -48,16 +47,16 @@ namespace UniversidadServicios.Controllers
         }
 
         [HttpPut]
-        public ActionResult<Country> Put([FromBody] Country country)
+        public ActionResult<Animal> Put([FromBody] Animal animal)
         {
 
             try
             {
-                if (country == null) return BadRequest();
+                if (animal == null) return BadRequest();
 
-                _countryRepository.Update(country);
+                _animalRepository.Update(animal);
 
-                return Ok(country);
+                return Ok(animal);
             }
             catch (Exception ex)
             {
@@ -69,18 +68,18 @@ namespace UniversidadServicios.Controllers
         }
 
         [HttpDelete]
-        public ActionResult<Country> Delete(String IdCountry)
+        public ActionResult<Animal> Delete(String Id)
         {
             try
             {
-                if (IdCountry == null) return BadRequest();
+                if (Id == null) return BadRequest();
 
-                Country country = _countryRepository.Read(IdCountry);
+                Animal animal = _animalRepository.Read(Id);
 
 
-                if (country == null) return NoContent();
+                if (animal == null) return NoContent();
 
-                _countryRepository.Delete(country);
+                _animalRepository.Delete(animal);
 
                 return Ok();
             }
@@ -91,16 +90,12 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{IdCountry}", Name = "GetCountry")]
-        public ActionResult<Country> GetCountry(string IdCountry)
+        [HttpGet("{Id}", Name = "GetAnimal")]
+        public ActionResult<Animal> GetAnimal(string Id)
         {
-
-
-           
-
             try
             {
-                Country result = _countryRepository.Read(IdCountry);
+                Animal result = _animalRepository.Read(Id);
                 if (result == null)
                     return BadRequest();
 
@@ -122,13 +117,12 @@ namespace UniversidadServicios.Controllers
 
         }
 
-
-        [HttpGet(Name = "GetCountrys")]
-        public ActionResult<List<Country>> GetCountrys()
+        [HttpGet(Name = "GetAnimals")]
+        public ActionResult<List<Animal>> GetAnimals()
         {
             try
             {
-                List<Country> result = _countryRepository.Read();
+                List<Animal> result = _animalRepository.Read();
                 if (result == null)
                     return BadRequest();
 
@@ -149,6 +143,6 @@ namespace UniversidadServicios.Controllers
             return BadRequest();
 
         }
-
     }
+
 }

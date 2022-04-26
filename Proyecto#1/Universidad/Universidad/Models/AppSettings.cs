@@ -60,6 +60,28 @@ namespace Universidad.Models
         [JsonPropertyName("Ticket")]
         public string Ticket { get; set; }
 
+        [JsonPropertyName("AnimalRaze")]
+        public string AnimalRaze { get; set; }
+
+        [JsonPropertyName("AnimalType")]
+        public string AnimalType { get; set; }
+
+        [JsonPropertyName("Schedule")]
+        public string Schedule { get; set; }
+
+        [JsonPropertyName("SpecialtyVet")]
+        public string SpecialtyVet { get; set; }
+
+        [JsonPropertyName("AppointmentVet")]
+        public string AppointmentVet { get; set; }
+
+        [JsonPropertyName("Animal")]
+        public string Animal { get; set; }
+
+        [JsonPropertyName("Smtp")]
+        public string Smtp { get; set; }
+
+
     }
 
 }
