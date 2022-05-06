@@ -1,0 +1,238 @@
+﻿@model Universidad.Models.SearchFlightResult
+
+@{
+    ViewData["Title"] = "FlightList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Vuelos</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Vuelos <small>encontrados</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+                <div class="x_content">
+                    <div class="x_content">
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 ">
+                                <div class="x_panel">
+                                    <div class="x_content">
+                                        <div class="dashboard-widget-content">
+
+                                            <div class="x_panel">
+
+                                                @{
+                                                    int count = 1;
+                                                    var countries = Model.Countries;
+                                                    var airplanes = Model.Airplanes;
+                                                    string people = (Model.SearchData.Adults + Model.SearchData.Minors + Model.SearchData.Baby) > 1 ? "personas" : "persona";
+
+                                                    <h2>Vuelos de ida</h2>
+                                                    <div class="x_content">
+                                                        <ul class="list-unstyled timeline">
+
+                                                            @foreach (var item in Model.FlightsSatrt)
+                                                            {
+                                                                string direct = item.Direct == "1" ? "Si" : "No";
+
+                                                                double amountEco = item.PriceEconomical * (Model.SearchData.Adults + Model.SearchData.Minors);
+                                                                double amountFrist = item.PriceFrist * (Model.SearchData.Adults + Model.SearchData.Minors);
+                                                                <li>
+                                                                    <form action="/Flight/Invoice" method="post">
+                                                                        <div class="block">
+                                                                            <div class="tags">
+                                                                                <a class="tag">
+                                                                                    <span>Vuelo @count</span>
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="block_content">
+                                                                                <h2 class="title">
+                                                                                    <a>@countries.Find(x => x.IdCountry == item.IdDestinationCountry).Name <i class="fa fa-arrow-right" aria-hidden="true"></i>  @countries.Find(x => x.IdCountry == item.IdOriginCountry).Name </a>
+                                                                                </h2>
+                                                                                <br /><br />
+                                                                                <div class="clearfix"></div>
+                                                                                <h2 class="title">Detalles del vuelo</h2>
+                                                                                <div class="clearfix"></div>
+                                                                                <div class="clearfix"></div>
+                                                                                <div class="byline">
+                                                                                    <span>Duración: </span> @item.Duration
+                                                                                </div>
+                                                                                <div class="byline">
+                                                                                    <span>Directo: </span> @direct
+                                                                                </div>
+                                                                                <div class="clearfix"></div>
+                                                                                <h2 class="title">Detalles del avión</h2>
+                                                                                <div class="clearfix"></div>
+                                                                                <div class="byline">
+                                                                                    <span>Modelo: </span> @item.Airplane
+                                                                                </div>
+                                                                                <div class="clearfix"></div>
+                                                                                <h2 class="title">Detalle del precios</h2>
+                                                                                <div class="clearfix"></div>
+                                                                                <div class="byline">
+                                                                                    <span>Precio económica </span> $@item.PriceEconomical por persona
+                                                                                </div>
+                                                                                <div class="byline">
+                                                                                    <span>Precio primera clase </span> $@item.PriceFrist por persona
+                                                                                </div>
+                                                                                <div class="clearfix"></div>
+                                                                                <h2 class="title">Totales</h2>
+                                                                                <div class="clearfix"></div>
+                                                                                <div class="byline">
+                                                                                    <input type="hidden" name="valueEco" value="$@amountEco" />
+                                                                                    <span>Total económica </span> $@amountEco para @(Model.SearchData.Adults + Model.SearchData.Minors) @people <input type="checkbox" class="flat" name="economica" id="economica" value="economica" checked="" />
+                                                                                </div>
+                                                                                <div class="byline">
+                                                                                    <input type="hidden" name="valueFrist" value="$@amountFrist" />
+                                                                                    <span>Total primera clase </span> $@amountFrist para @(Model.SearchData.Adults + Model.SearchData.Minors) @people <input type="checkbox" class="flat" name="primera" id="primera" value="primera" />
+                                                                                </div>
+                                                                                <div class="clearfix"></div>
+                                                                                <p class="excerpt">**Vuelo incluye equipaje de mano no mayor a los 10kg, si desea agregar peso adicional deberá seleccionarlo</p>
+                                                                                <div class="clearfix"></div>
+                                                                                <div class="byline">
+                                                                                    @foreach (var item2 in Model.Luggages)
+                                                                                    {
+                                                                                        var name = item2.Description + " " + item2.MaxKilos + "kg " + " $" + @item2.Price + "  ";
+
+                                                                                        <input type="checkbox" class="flat" name="@item2.MaxKilos" id="@item2.MaxKilos" value="@item2.MaxKilos" /> @name
+                                                                                    }
+                                                                                </div>
+                                                                                <div class="clearfix"></div>
+                                                                                <div class="byline">
+                                                                                    <button class="btn btn-success" type="submit">Comprar</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </li>
+
+                                                                count++;
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                            @if (Model.SearchData.RoundFlight != null)
+                                            {
+                                                <div class="x_panel">
+
+                                                    @{
+                                                        count = 1;
+
+                                                        <div class="x_content">
+
+                                                            <h2>Vuelos de regreso</h2>
+                                                            <ul class="list-unstyled timeline">
+
+                                                                @foreach (var item in Model.FlightsSatrt)
+                                                                {
+                                                                    string direct = item.Direct == "1" ? "Si" : "No";
+
+                                                                    double amountEco = item.PriceEconomical * (Model.SearchData.Adults + Model.SearchData.Minors);
+                                                                    double amountFrist = item.PriceFrist * (Model.SearchData.Adults + Model.SearchData.Minors);
+
+                                                                    <li>
+                                                                        <form action="/Flight/Invoice" method="post">
+                                                                            <div class="block">
+                                                                                <div class="tags">
+                                                                                    <a class="tag">
+                                                                                        <span>Vuelo @count</span>
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div class="block_content">
+                                                                                    <h2 class="title">
+                                                                                        <a>@countries.Find(x => x.IdCountry == item.IdDestinationCountry).Name <i class="fa fa-arrow-right" aria-hidden="true"></i>  @countries.Find(x => x.IdCountry == item.IdOriginCountry).Name </a>
+                                                                                    </h2>
+                                                                                    <br /><br />
+                                                                                    <div class="clearfix"></div>
+                                                                                    <h2 class="title">Detalles del vuelo</h2>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <div class="byline">
+                                                                                        <span>Duración: </span> @item.Duration
+                                                                                    </div>
+                                                                                    <div class="byline">
+                                                                                        <span>Directo: </span> @direct
+                                                                                    </div>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <h2 class="title">Detalles del avión</h2>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <div class="byline">
+                                                                                        <span>Modelo: </span> @item.Airplane
+                                                                                    </div>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <h2 class="title">Detalle del precios</h2>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <div class="byline">
+                                                                                        <span>Precio económica </span> $@item.PriceEconomical por persona
+                                                                                    </div>
+                                                                                    <div class="byline">
+                                                                                        <span>Precio primera clase </span> $@item.PriceFrist por persona
+                                                                                    </div>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <h2 class="title">Totales</h2>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <div class="byline">
+                                                                                        <input type="hidden" name="valueEco" value="$@amountEco" />
+                                                                                        <span>Total económica </span> $@amountEco para @(Model.SearchData.Adults + Model.SearchData.Minors) @people <input type="checkbox" class="flat" name="economica" id="economica" value="economica" checked="" />
+                                                                                    </div>
+                                                                                    <div class="byline">
+                                                                                        <input type="hidden" name="valueFrist" value="$@amountFrist" />
+                                                                                        <span>Total primera clase </span> $@amountFrist para @(Model.SearchData.Adults + Model.SearchData.Minors) @people <input type="checkbox" class="flat" name="primera" id="primera" value="primera" />
+                                                                                    </div>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <p class="excerpt">**Vuelo incluye equipaje de mano no mayor a los 10kg, si desea agregar peso adicional deberá seleccionarlo</p>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <div class="byline">
+                                                                                        @foreach (var item2 in Model.Luggages)
+                                                                                        {
+                                                                                            var name = item2.Description + " " + item2.MaxKilos + "kg " + " $" + @item2.Price + "  ";
+
+                                                                                            <input type="checkbox" class="flat" name="@item2.MaxKilos" id="@item2.MaxKilos" value="@item2.MaxKilos" /> @name
+                                                                                        }
+                                                                                    </div>
+                                                                                    <div class="clearfix"></div>
+                                                                                    <div class="byline">
+                                                                                        <button class="btn btn-success" type="submit">Comprar</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </li>
+                                                                    count++;
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -125,5 +125,46 @@ namespace Universidad.Controllers
                 return View();
             }
         }
+
+        public ActionResult Search()
+        {
+            List<Country> country = JsonConvert.DeserializeObject<List<Country>>(_utility.RestClient.Get(_appSettings.url.Country));
+
+            return View(country);
+        }
+
+        [HttpPost]
+        public ActionResult FlightList(SearchFlight searchFlight)
+        {
+            SearchFlightResult searchFlightResult = new SearchFlightResult();
+            if (searchFlight != null)
+            {
+                List<Country> country = JsonConvert.DeserializeObject<List<Country>>(_utility.RestClient.Get(_appSettings.url.Country));
+                List<Flight> flight = JsonConvert.DeserializeObject<List<Flight>>(_utility.RestClient.Get(_appSettings.url.Flight));
+
+                List<Airplane> airplane = JsonConvert.DeserializeObject<List<Airplane>>(_utility.RestClient.Get(_appSettings.url.Airplane));
+
+                List<Luggage> luggage = JsonConvert.DeserializeObject<List<Luggage>>(_utility.RestClient.Get(_appSettings.url.Luggage));
+
+                List<Flight> flightStart = flight.FindAll(x => Convert.ToDateTime(x.DateFlight).ToString("yyyy/MM/dd") ==
+                searchFlight.startDate.ToString("yyyy/MM/dd") && x.IdOriginCountry == searchFlight.IdOriginCountry).ToList();
+
+                List<Flight> flightEnd = flight.FindAll(x => Convert.ToDateTime(x.DateFlight).ToString("yyyy/MM/dd") ==
+                searchFlight.endDate.ToString("yyyy/MM/dd") && x.IdOriginCountry == searchFlight.IdDestinationCountry).ToList();
+
+
+                searchFlightResult = new SearchFlightResult()
+                {
+                    FlightsSatrt = flightStart,
+                    FlightsEnd = flightEnd,
+                    SearchData = searchFlight,
+                    Countries = country,
+                    Luggages = luggage
+                };
+
+                return View(searchFlightResult);
+            }
+            return View(searchFlightResult);
+        }
     }
 }

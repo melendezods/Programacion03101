@@ -22,4 +22,41 @@ namespace Universidad.Models
         public List<Airplane> Airplanes { get; set; }
         public List<Crew> Crew { get; set; }
     }
+
+
+    public class SearchFlight
+    {
+        public int IdOriginCountry { get; set; }
+        public int IdDestinationCountry { get; set; }
+
+        public DateTime startDate { get; set; }
+
+        public DateTime endDate { get; set; }
+
+        public int Adults { get; set; }
+
+        public int Minors { get; set; }
+
+        public int Baby { get; set; }
+
+        public string RoundFlight { get; set; }
+
+        public string SimpleFlight { get; set; }
+
+
+    }
+
+    public class SearchFlightResult
+    {
+       public List<Flight> FlightsSatrt { get; set; }
+        public List<Flight> FlightsEnd { get; set; }
+
+        public List<Country> Countries { get; set; }
+
+        public List<Airplane> Airplanes { get; set; }
+
+        public List<Luggage> Luggages { get; set; }
+
+        public SearchFlight SearchData { get; set; }
+    }
 }
