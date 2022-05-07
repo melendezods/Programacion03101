@@ -58,5 +58,7 @@ namespace Universidad.Models
         public List<Luggage> Luggages { get; set; }
 
         public SearchFlight SearchData { get; set; }
+
+        public DataFlight DataFlight { get; set; }
     }
 }

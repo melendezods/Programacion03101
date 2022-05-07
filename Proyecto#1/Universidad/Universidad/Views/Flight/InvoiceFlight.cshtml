@@ -16,7 +16,7 @@
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Vuelos <small>encontrados</small></h2>
+                <h2>Detalle reserva de Vuelos <small></small></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -42,9 +42,9 @@
                                                     int count = 1;
                                                     var countries = Model.Countries;
                                                     var airplanes = Model.Airplanes;
-                                                    string people = (Model.SearchData.Adults + Model.SearchData.Minors + Model.SearchData.Baby) > 1 ? "personas" : "persona";
+                                                    string people = (Model.DataFlight.Adults + Model.DataFlight.Minors + Model.DataFlight.Baby) > 1 ? "personas" : "persona";
 
-                                                    <h2>Vuelos de ida</h2>
+                                                    <h2>Vuelo de ida</h2>
                                                     <div class="x_content">
                                                         <ul class="list-unstyled timeline">
 
@@ -52,8 +52,8 @@
                                                             {
                                                                 string direct = item.Direct == "1" ? "Si" : "No";
 
-                                                                double amountEco = item.PriceEconomical * (Model.SearchData.Adults + Model.SearchData.Minors);
-                                                                double amountFrist = item.PriceFrist * (Model.SearchData.Adults + Model.SearchData.Minors);
+                                                                double amountEco = item.PriceEconomical * (Model.DataFlight.Adults + Model.DataFlight.Minors);
+                                                                double amountFrist = item.PriceFrist * (Model.DataFlight.Adults + Model.DataFlight.Minors);
                                                                 <li>
 
                                                                     <div class="block">
@@ -102,31 +102,39 @@
                                                                             <div class="clearfix"></div>
                                                                             <h2 class="title">Totales</h2>
                                                                             <div class="clearfix"></div>
-                                                                            <div class="byline">
-                                                                                <input type="hidden" name="valueEco" value="$@amountEco" />
-                                                                                <span>Total económica </span>  $@amountEco para @(Model.SearchData.Adults + Model.SearchData.Minors) @people <input type="checkbox" class="" name="economicaIda" id="economicaIda" value="economica"  onclick="pricetkIdaEco();" />
-                                                                                <input type="hidden" name="totalPriceEco" value="Total económica $@amountEco para @(Model.SearchData.Adults + Model.SearchData.Minors) @people" />
-                                                                            </div>
-                                                                            <div class="byline">
-                                                                                <input type="hidden" name="valueFrist" value="$@amountFrist" />
-                                                                                <span>Total primera clase </span>      $@amountFrist para @(Model.SearchData.Adults + Model.SearchData.Minors) @people   <input type="checkbox" class="" name="primeraIda" id="primeraIda" value="primera" onclick="pricetkIdaFrist()" />
-                                                                                <input type="hidden" name="totalPriceFirst" value="Total primera clase $@amountFrist para @(Model.SearchData.Adults + Model.SearchData.Minors) @people" />
-                                                                            </div>
-                                                                            <div class="clearfix"></div>
-                                                                            <p class="excerpt">**Vuelo incluye equipaje de mano no mayor a los 10kg, si desea agregar peso adicional deberá seleccionarlo</p>
+                                                                            @if (Model.DataFlight.PriceIdaEco == 1)
+                                                                            {
+                                                                                <div class="byline">
+                                                                                    <input type="hidden" name="valueEco" value="$@amountEco" />
+                                                                                    <span>Total económica </span>  $@amountEco para @(Model.DataFlight.Adults + Model.DataFlight.Minors) @people <input type="checkbox" class="" name="economicaIda" id="economicaIda" value="economica" checked="" disabled="disabled" />
+                                                                                    <input type="hidden" name="totalPriceEco" value="Total económica $@amountEco para @(Model.DataFlight.Adults + Model.DataFlight.Minors) @people" />
+                                                                                </div>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div class="byline">
+                                                                                    <input type="hidden" name="valueFrist" value="$@amountFrist" />
+                                                                                    <span>Total primera clase </span>      $@amountFrist para @(Model.DataFlight.Adults + Model.DataFlight.Minors) @people   <input type="checkbox" class="" name="primeraIda" id="primeraIda" value="primera" checked="" disabled="disabled" />
+                                                                                    <input type="hidden" name="totalPriceFirst" value="Total primera clase $@amountFrist para @(Model.DataFlight.Adults + Model.DataFlight.Minors) @people" />
+                                                                                </div>
+                                                                            }
                                                                             <div class="clearfix"></div>
                                                                             <div class="byline">
                                                                                 @foreach (var item2 in Model.Luggages)
                                                                                 {
                                                                                     var name = item2.Description + " " + item2.MaxKilos + "kg " + " $" + @item2.Price + "  ";
-                                                                                    string id = "ida" + item2.MaxKilos;
-                                                                                    <input type="checkbox" class="" name="@id" id="@id" value="@item2.MaxKilos" onclick="equipajeIda(@item2.IdLuggage);" /> @name
+                                                                                    string id = "vuelta" + item2.MaxKilos;
+                                                                                    if (item2.IdLuggage == Model.DataFlight.LuggageStart)
+                                                                                    {
+                                                                                        <input type="checkbox" class="" name="@id" id="@id" value="@item2.MaxKilos" checked="checked" disabled="disabled" /> @name
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <input type="checkbox" class="" name="@id" id="@id" value="@item2.MaxKilos" disabled="disabled" /> @name
+                                                                                    }
                                                                                 }
                                                                             </div>
                                                                             <div class="clearfix"></div>
-                                                                            <div class="byline">
-                                                                                <button class="btn btn-success" onclick="reservartkIda(@item.IdFlight,@Model.SearchData.Adults,@Model.SearchData.Minors,@Model.SearchData.Baby);">Reservar</button>
-                                                                            </div>
                                                                         </div>
                                                                     </div>
 
@@ -139,7 +147,7 @@
                                                 }
                                             </div>
 
-                                            @if (Model.SearchData.RoundFlight != null)
+                                            @if (Model.DataFlight.IdFligReturn != 0)
                                             {
                                                 <div class="x_panel">
 
@@ -148,15 +156,15 @@
 
                                                         <div class="x_content">
 
-                                                            <h2>Vuelos de regreso</h2>
+                                                            <h2>Vuelo de regreso</h2>
                                                             <ul class="list-unstyled timeline">
 
                                                                 @foreach (var item in Model.FlightsSatrt)
                                                                 {
                                                                     string direct = item.Direct == "1" ? "Si" : "No";
 
-                                                                    double amountEco = item.PriceEconomical * (Model.SearchData.Adults + Model.SearchData.Minors);
-                                                                    double amountFrist = item.PriceFrist * (Model.SearchData.Adults + Model.SearchData.Minors);
+                                                                    double amountEco = item.PriceEconomical * (Model.DataFlight.Adults + Model.DataFlight.Minors);
+                                                                    double amountFrist = item.PriceFrist * (Model.DataFlight.Adults + Model.DataFlight.Minors);
 
                                                                     <li>
 
@@ -206,31 +214,39 @@
                                                                                 <div class="clearfix"></div>
                                                                                 <h2 class="title">Totales</h2>
                                                                                 <div class="clearfix"></div>
-                                                                                <div class="byline">
-                                                                                    <input type="hidden" name="valueEcoVuelta" value="$@amountEco" />
-                                                                                    <span>Total económica </span>  $@amountEco para @(Model.SearchData.Adults + Model.SearchData.Minors) @people <input type="checkbox" class="" name="economicaVuelta" id="economicaVuelta" value="economica"  onclick="pricetkVueltaEco();" />
-                                                                                    <input type="hidden" name="totalPriceEcoVuelta" value="Total económica $@amountEco para @(Model.SearchData.Adults + Model.SearchData.Minors) @people" />
-                                                                                </div>
-                                                                                <div class="byline">
-                                                                                    <input type="hidden" name="valueFristVuelta" value="$@amountFrist" />
-                                                                                    <span>Total primera clase </span>      $@amountFrist para @(Model.SearchData.Adults + Model.SearchData.Minors) @people   <input type="checkbox" class="" name="primeraVuelta" id="primeraVuelta" value="primera" onclick="pricetkVueltaFrist();" />
-                                                                                    <input type="hidden" name="totalPriceFirstVuelta" value="Total primera clase $@amountFrist para @(Model.SearchData.Adults + Model.SearchData.Minors) @people" />
-                                                                                </div>
-                                                                                <div class="clearfix"></div>
-                                                                                <p class="excerpt">**Vuelo incluye equipaje de mano no mayor a los 10kg, si desea agregar peso adicional deberá seleccionarlo</p>
-                                                                                <div class="clearfix"></div>
+                                                                                @if (Model.DataFlight.PriceIdaEco == 1)
+                                                                                {
+                                                                                    <div class="byline">
+                                                                                        <input type="hidden" name="valueEcoVuelta" value="$@amountEco" />
+                                                                                        <span>Total económica </span>  $@amountEco para @(Model.DataFlight.Adults + Model.DataFlight.Minors) @people <input type="checkbox" class="" name="economicaVuelta" id="economicaVuelta" value="economica" checked="" onclick="pricetkVueltaEco();" />
+                                                                                        <input type="hidden" name="totalPriceEcoVuelta" value="Total económica $@amountEco para @(Model.DataFlight.Adults + Model.DataFlight.Minors) @people" />
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="byline">
+                                                                                        <input type="hidden" name="valueFristVuelta" value="$@amountFrist" />
+                                                                                        <span>Total primera clase </span>      $@amountFrist para @(Model.DataFlight.Adults + Model.DataFlight.Minors) @people   <input type="checkbox" class="" name="primeraVuelta" id="primeraVuelta" value="primera" checked="" onclick="pricetkVueltaFrist();" />
+                                                                                        <input type="hidden" name="totalPriceFirstVuelta" value="Total primera clase $@amountFrist para @(Model.DataFlight.Adults + Model.DataFlight.Minors) @people" />
+                                                                                    </div>
+                                                                                }
+                                                                                <div class="clearfix"></div>                                                                                
                                                                                 <div class="byline">
                                                                                     @foreach (var item2 in Model.Luggages)
                                                                                     {
                                                                                         var name = item2.Description + " " + item2.MaxKilos + "kg " + " $" + @item2.Price + "  ";
                                                                                         string id = "vuelta" + item2.MaxKilos;
-                                                                                        <input type="checkbox" class="" name="@id" id="@id" value="@item2.MaxKilos" onclick="equipajeVuelta(@item2.IdLuggage);" /> @name
+                                                                                        if (item2.IdLuggage == Model.DataFlight.LuggageReturn)
+                                                                                        {
+                                                                                            <input type="checkbox" class="" name="@id" id="@id" value="@item2.MaxKilos" checked="checked" disabled="disabled" /> @name
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <input type="checkbox" class="" name="@id" id="@id" value="@item2.MaxKilos" disabled="disabled" /> @name
+                                                                                        }
                                                                                     }
                                                                                 </div>
                                                                                 <div class="clearfix"></div>
-                                                                                <div class="byline">
-                                                                                    <button class="btn btn-success" onclick="reservartkVuelta(@item.IdFlight);">Reservar</button>
-                                                                                </div>
                                                                             </div>
                                                                         </div>
 
@@ -239,9 +255,6 @@
                                                                 }
                                                             </ul>
                                                         </div>
-
-                                                        <button class="btn btn-success" id="btn-buy">Comprar</button>
-
                                                     }
                                                 </div>
                                             }
@@ -260,51 +273,7 @@
 @section Scripts {
     <script>
 
-        var dataFlight = new Object();
-
-        function reservartkVuelta(idFlig) {
-            dataFlight.IdFligReturn = idFlig;
-        }
-
-        function reservartkIda(idFlig, Adults, Minors, Baby) {
-            dataFlight.IdFligStart = idFlig;
-            dataFlight.Adults = Adults;
-            dataFlight.Minors = Minors;
-            dataFlight.Baby = Baby;
-        }
-
-        function equipajeVuelta(IdLuggage) {
-            dataFlight.LuggageReturn = IdLuggage;
-        }
-        function equipajeIda(IdLuggage) {
-            dataFlight.LuggageStart = IdLuggage;
-        }
-
-        function pricetkIdaEco() {
-            dataFlight.PriceIdaEco = 1;
-        }
-        function pricetkVueltaEco() {
-            dataFlight.PriceVueltaEco = 1;
-        }
-
-        function pricetkIdaFrist() {
-            dataFlight.PriceIdaFrist = 1;
-        }
-        function pricetkVueltaFrist() {
-            dataFlight.PriceVueltaFrist = 1;
-        }
-
-        $('#btn-buy').click(function () {
-
-            $.post("/Flight/InvoiceFlight", {
-                'DataFlight': dataFlight
-            },
-                function (data) {
-                    console.log(data);
-                    $('body').html(data);
-                }, "html");
-
-        });
+       
 
     </script>
 }

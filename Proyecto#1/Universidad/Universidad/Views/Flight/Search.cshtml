@@ -45,11 +45,10 @@
                                                         <div class="col-md-6 col-sm-6 ">
                                                             <p>
                                                                 Vuelo redondo:
-                                                                <input type="checkbox" class="flat" name="RoundFlight" id="RoundFlight" value="redondo" checked="" />
+                                                                <input type="checkbox" class="" name="RoundFlight" id="RoundFlight" value="redondo" onclick="roundFlight();"/>
                                                                 Vuelo sencillo:
-                                                                <input type="checkbox" class="flat" name="SimpleFlight" id="SimpleFlight" value="sencillo" />
+                                                                <input type="checkbox" class="" name="SimpleFlight" id="SimpleFlight" value="sencillo" onclick="simpleFlight();"/>
                                                             </p>
-
                                                         </div>
                                                     </div>
 
@@ -113,7 +112,7 @@
                                                             Regreso <span class="required">*</span>
                                                         </label>
                                                         <div class="col-md-6 col-sm-6 ">
-                                                            <input id="endDate" name="endDate" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required"  onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)" >
+                                                            <input id="endDate" name="endDate" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
                                                             <script>
                                                                 function timeFunctionLong(input) {
                                                                     setTimeout(function () {
@@ -171,3 +170,20 @@
     </div>
 </div>
 
+@section Scripts {
+    <script>
+                
+        function simpleFlight()
+        {
+            $('#RoundFlight').prop('checked', false);
+            $('#endDate').prop("disabled", true);
+        }
+
+        function roundFlight()
+        {
+            $('#SimpleFlight').prop('checked', false);
+            $('#endDate').prop("disabled", false);
+        }
+        
+    </script>
+}

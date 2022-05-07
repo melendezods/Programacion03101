@@ -175,17 +175,7 @@
         $("#date").change(function () {
             var idSpecialty = $('#IdSpecialtyVet :selected').val();
             var date = $('#date').val();
-            $.post("/Schedule/GetSchedule", {
-                'IdSpecialty': idSpecialty,
-                'date': date
-            },
-                function (data) {
-                    var sel = $("#IdShedule");
-                    sel.empty();
-                    for (var i = 0; i < data.length; i++) {
-                        sel.append('<option value="' + data[i].id + '">' + data[i].hours + '</option>');
-                    }
-                }, "json");
+            0
         });
 
         $("#IdSpecialtyVet").change(function () {

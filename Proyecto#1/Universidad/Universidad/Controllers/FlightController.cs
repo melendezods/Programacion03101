@@ -166,5 +166,38 @@ namespace Universidad.Controllers
             }
             return View(searchFlightResult);
         }
+
+        [HttpPost]
+        public ActionResult InvoiceFlight(DataFlight DataFlight)
+        {
+            SearchFlightResult searchFlightResult = new SearchFlightResult();
+            if (DataFlight != null)
+            {
+                List<Country> country = JsonConvert.DeserializeObject<List<Country>>(_utility.RestClient.Get(_appSettings.url.Country));
+                List<Flight> flight = JsonConvert.DeserializeObject<List<Flight>>(_utility.RestClient.Get(_appSettings.url.Flight));
+
+                List<Airplane> airplane = JsonConvert.DeserializeObject<List<Airplane>>(_utility.RestClient.Get(_appSettings.url.Airplane));
+
+                List<Luggage> luggage = JsonConvert.DeserializeObject<List<Luggage>>(_utility.RestClient.Get(_appSettings.url.Luggage));
+
+                List<Flight> flightStart = flight.FindAll(x => x.IdFlight == DataFlight.IdFligStart).ToList();
+
+                List<Flight> flightEnd = flight.FindAll(x => x.IdFlight == DataFlight.IdFligReturn).ToList();
+
+
+                searchFlightResult = new SearchFlightResult()
+                {
+                    FlightsSatrt = flightStart,
+                    FlightsEnd = flightEnd,                    
+                    Countries = country,
+                    Luggages = luggage,
+                    DataFlight = DataFlight
+                };
+
+                return View(searchFlightResult);
+            }
+            return View(searchFlightResult);
+        }
+       
     }
 }
