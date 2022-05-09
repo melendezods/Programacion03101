@@ -1,0 +1,151 @@
+﻿@model Universidad.Models.Person
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Personas</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Regitro <small>personas</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+
+                <div class="x_content">
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/person/create" method="post">
+
+                            <div class="item form-group">
+                                <label asp-for="Name" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="Name">
+                                    Nombre <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="Name" id="Name" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="Identification" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="Identification">
+                                    Identificación <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="Identification" id="Description" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="Identification" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="LastName" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="LastName">
+                                    Primer apellido <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="LastName" id="LastName" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="Surname" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="Surname">
+                                    Segundo apellido <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="Surname" id="Surname" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="Surname" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="Email" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="Email">
+                                    Correo electrónico <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="Email" id="Email" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="BirthDate" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="BirthDate">
+                                    Fecha de nacimiento
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="BirthDate" id="BirthDate" class="date-picker form-control" placeholder="yyyy-mm-dd" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                                    <script>
+                                        function timeFunctionLong(input) {
+                                            setTimeout(function () {
+                                                input.type = 'text';
+                                            }, 60000);
+                                        }
+                                    </script>
+                                </div>
+                                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="IdGender" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdGender">
+                                    Genero <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdGender" name="IdGender" class="form-control" required>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.Gender)
+                                                {
+                                                    <option value="@item.IdGender">@item.Gender1</option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdGender" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="IdPosition" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdPosition">
+                                    cargo <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdPosition" name="IdPosition" class="form-control" required>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.Position)
+                                                {
+                                                    <option value="@item.IdPosition">@item.Position1</option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdPosition" class="text-danger"></span>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

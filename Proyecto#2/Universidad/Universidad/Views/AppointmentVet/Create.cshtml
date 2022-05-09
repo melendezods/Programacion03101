@@ -1,0 +1,193 @@
+﻿@model Universidad.Models.AppointmentVet
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Citas</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Citas <small>veterinarias</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+                <div class="x_content">
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/appointmentvet/create" method="post">
+
+                            <div class="item form-group">
+                                <label asp-for="IdSpecialtyVet" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdSpecialtyVet">
+                                    Especialidad <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdSpecialtyVet" name="IdSpecialtyVet" class="form-control" required>
+                                        <option value="-1">Seleccione uno ..</option>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.specialtyVets)
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdSpecialtyVet" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="IdAnimalType" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdAnimalType">
+                                    Tipo de animal <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdAnimalType" name="IdAnimalType" class="form-control" required>
+                                        <option value="-1">Seleccione uno ..</option>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.animalTypes)
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdAnimalType" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="IdAnimalRaze" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdAnimalRaze">
+                                    Raza de animal <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdAnimalRaze" name="IdAnimalRaze" class="form-control" required>
+                                        <option value="-1">Cargando ..</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdAnimalRaze" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="NameAnimal" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="NameAnimal">
+                                    Nombre del animal <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="NameAnimal" id="Name" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="NameAnimal" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="DescriptionAnimal" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="DescriptionAnimal">
+                                    Descripción del animal
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="DescriptionAnimal" id="DescriptionAnimal" class="form-control" />
+                                </div>
+                                <span asp-validation-for="DescriptionAnimal" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="AgeAnimal" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="AgeAnimal">
+                                    Edad del animal <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="AgeAnimal" id="DescriptionAnimal" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="AgeAnimal" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align control-label" for="BirthDate">
+                                    Día de la cita
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input id="date" name="date" class="date-picker form-control" placeholder="yyyy-mm-dd" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                                    <script>
+                                        function timeFunctionLong(input) {
+                                            setTimeout(function () {
+                                                input.type = 'text';
+                                            }, 60000);
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label asp-for="IdShedule" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdShedule">
+                                    Hora de cita<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdShedule" name="IdShedule" class="form-control" required>
+                                        <option value="-1">Cargando ..</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdShedule" class="text-danger"></span>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+
+    <script>
+
+        $("#IdAnimalType").change(function () {
+            var idAnimalType = $('#IdAnimalType :selected').val();
+            $.post("/AnimalRazes/GetAnimalRazes", {
+                'IdTypeAnimal': idAnimalType
+            },
+                function (data) {
+                    var sel = $("#IdAnimalRaze");
+                    sel.empty();
+                    for (var i = 0; i < data.length; i++) {
+                        sel.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                    }
+                }, "json");
+        });
+
+        $("#date").change(function () {
+            var idSpecialty = $('#IdSpecialtyVet :selected').val();
+            var date = $('#date').val();
+            0
+        });
+
+        $("#IdSpecialtyVet").change(function () {
+            var sel = $("#IdShedule");
+            sel.empty();
+            sel.append('<option value="' + "-1" + '">Cargando ..</option>');
+            var date = $("#date");
+            date.val("");
+        });
+
+
+
+    </script>
+
+}

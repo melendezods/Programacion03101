@@ -1,0 +1,44 @@
+﻿@model Universidad.Models.User
+
+@{
+    ViewData["Title"] = "VerifyCode";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="login_wrapper">
+    <div id="verifyCode" class="form login_form">
+        <section class="login_content">
+            <form asp-action="VerifyCodeUser">
+                <h1>Verify code</h1>
+                <div>
+                    <input type="password" class="form-control" placeholder="Code" required="" name="Code" />
+                    <input type="hidden" value="@Model.Email" name="Email" />
+                </div>
+                <div>
+                    <input type="submit" value="Verify" class="btn btn-primary" />                    
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="separator">
+                    <p class="change_link">
+                        Already a member ?
+                        <a href="/Login/index" class="to_register"> Log in </a>
+                    </p>
+
+                    <div class="clearfix"></div>
+                    <br />
+                    <div>
+                        <h2>@Model.message</h2>                        
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <div>
+                        <h1><i class="fa fa-book"></i> Proyecto!</h1>
+                        &copy; 2022 - Proyecto - Universidad <a asp-area="" asp-controller="Home"></a>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+
+</div>

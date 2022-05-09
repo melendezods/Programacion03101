@@ -1,0 +1,111 @@
+﻿@model Universidad.Models.Ticket
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Boletos</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Regitro <small>boletos</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+                <div class="x_content">
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/ticket/create" method="post">
+
+                            <div class="item form-group">
+                                <label asp-for="IdFlight" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdFlight">
+                                    Vuelo <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdFlight" name="IdFlight" class="form-control" required>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.Flights)
+                                                {
+                                                    string vuelo = item.IdFlight + " - " +
+                                                        Model.Flights.First().Country.Find(x => x.IdCountry == item.IdOriginCountry).Name + " - " +
+                                                        Model.Flights.First().Country.Find(x => x.IdCountry == item.IdDestinationCountry).Name + " Directo " + (Int32.Parse(item.Direct) > 0 ? "Si" : "No");
+                                                    <option value="@item.IdFlight">@vuelo</option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdFlight" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="IdLuggage" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="IdLuggage">
+                                    Equipaje <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="IdLuggage" name="IdLuggage" class="form-control" required>
+                                        @{
+                                            if (Model != null)
+                                            {
+                                                foreach (var item in Model.Luggages)
+                                                {
+                                                    string equipaje = item.ShortDes + " " + item.MaxKilos + " Kg";
+                                                    <option value="@item.IdLuggage">@equipaje </option>
+                                                }
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="IdLuggage" class="text-danger"></span>
+                            </div>
+                            <div class="item form-group">
+                                <label asp-for="SeatNumber" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="SeatNumber">
+                                    Asiento <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input asp-for="SeatNumber" id="LastName" class="form-control" required="required" />
+                                </div>
+                                <span asp-validation-for="SeatNumber" class="text-danger"></span>
+                            </div>
+                           
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,146 @@
+﻿@model Universidad.Models.Crew
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Tripulación</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Regitro <small>tripulación</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+
+            <div class="x_content">
+                <div class="x_content">
+                    <br />
+                    @*<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/crew/create" method="post">*@
+
+                    <div class="item form-group">
+                        <label asp-for="Description" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="Description">
+                            Nombre <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input asp-for="Description" id="Name" class="form-control" required="required" />
+                        </div>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var item in Model.person[0].Position)
+                            {
+                                <div class="item form-group">
+                                    <label asp-for="@item.Position1" class="col-form-label col-md-3 col-sm-3 label-align control-label" for="@item.Position1">
+                                        @item.Position1 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <select id="@item.Position1" asp-validation-for="@item.Position1" class="select2_multiple form-control" multiple required>
+                                            @{
+                                                if (Model != null)
+                                                {
+                                                    var people = Model.person.FindAll(x => x.IdPosition == item.IdPosition);
+                                                    foreach (var item2 in people)
+                                                    {
+                                                        var value = item2.Identification + " " + item2.Name;
+                                                        <option value="@item2.Identification">@value</option>
+
+                                                    }
+                                                }
+
+                                            }
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="@item.Position1" class="text-danger"></span>
+                                </div>
+                            }
+                        }
+                    }
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" class="btn btn-success" id="btn-save">Guardar</button>
+                        </div>
+                    </div>
+
+                    @*</form>*@
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+
+
+        $("#btn-save").click(function () {
+
+            var data = new Object();
+            var crew = [];
+
+            $.each($('#Piloto').val(), function (ind, elem) {
+                crew.push(elem);
+            });
+
+            $.each($('#Copiloto').val(), function (ind, elem) {
+                crew.push(elem);
+            });
+
+            $.each($('#Azafata').val(), function (ind, elem) {
+                crew.push(elem);
+            });
+
+            data.CrewPerson = crew;
+            data.Description = $('#Name').val()
+            console.log(data);
+
+            $.ajax({
+                type: 'POST',  // Envío con método POST
+                url: '/crew/create',  // Fichero destino (el PHP que trata los datos)
+                data: { crew: data } // Datos que se envían
+            }).done(function (msg) {  // Función que se ejecuta si todo ha ido bien
+                $(location).prop('href', '/crew/index');  // Escribimos en el div consola el mensaje devuelto
+            }).fail(function (jqXHR, textStatus, errorThrown) { // Función que se ejecuta si algo ha ido mal
+                // Mostramos en consola el mensaje con el error que se ha producido
+                $(location).prop('href', '/crew/index');
+            });
+
+        });
+
+
+
+
+
+    </script>
+
+
+
+}
+
+
+
+
+
+
